@@ -1,4 +1,4 @@
-import Interaction from '../models/Interaction.js';
+import Interaction from '../models/interaction.js';
 
 /**
  * Creates a new interaction for a user.
