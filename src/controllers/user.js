@@ -2,6 +2,7 @@ import User from '../models/user.js';
 import FriendRequest from '../models/friend-request.js';
 import { createInteraction } from '../components/interaction.js';
 import { generateCryptoCode } from '../helpers/string-utils.js';
+import { uploadFileToBucket } from '../helpers/upload-file.js';
 import { INTERACTION_POINTS, INTERACTION_TYPES } from '../helpers/constants.js';
 
 /**
@@ -78,4 +79,14 @@ export async function registerNFC(userId, nfcId) {
     throw new Error('NFC ID already in use.');
   }
   return User.findOneAndUpdate({ userId }, { nfcId }, { new: true });
+}
+
+export async function uploadProfilePicture(userId, file) {
+  const profilePictureUrl = await uploadFileToBucket(userId, file);
+  await User.findOneAndUpdate(
+    { userId },
+    { profilePicture: profilePictureUrl },
+    { new: true }
+  );
+  return profilePictureUrl;
 }
