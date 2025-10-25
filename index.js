@@ -1,5 +1,3 @@
-import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from './src/config/swagger.js';
 import app from './src/config/express.js';
 import user from './src/routes/user.routes.js';
 import friend from './src/routes/friend.routes.js';
@@ -17,8 +15,6 @@ app.use('/api/auth', auth);
 app.get('/api/healthcheck', (req, res) => {
   res.status(200).json({ status: 'OK' });
 });
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
