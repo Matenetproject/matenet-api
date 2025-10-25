@@ -84,11 +84,7 @@ export async function registerNFC(userId, nfcId) {
 
 export async function uploadProfilePicture(userId, file) {
   const profilePictureUrl = await uploadFileToBucket(userId, file);
-  await User.findOneAndUpdate(
-    { userId },
-    { profilePictureUrl },
-    { new: true }
-  );
+  await User.findOneAndUpdate({ userId }, { profilePictureUrl }, { new: true });
   return profilePictureUrl;
 }
 
@@ -96,6 +92,6 @@ export async function updateUserFriendsList(userId, friendId) {
   return User.findOneAndUpdate(
     { userId },
     { $addToSet: { friends: friendId } },
-    { new: true }
+    { new: true },
   );
 }

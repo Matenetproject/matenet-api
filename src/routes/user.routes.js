@@ -15,9 +15,8 @@ const upload = multer({
     } else {
       cb(new Error('Only image files (jpg, jpeg, png, gif) are allowed'));
     }
-  }
+  },
 });
-
 
 /**
  * @swagger
@@ -73,9 +72,9 @@ router.post('/register-nfc', requireAuth, async (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               walletAddress: 
+ *               walletAddress:
  *                 type: string
- *               username: 
+ *               username:
  *                 type: string
  *     responses:
  *       201:
@@ -106,9 +105,9 @@ router.post('/', async (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               walletAddress: 
+ *               walletAddress:
  *                 type: string
- *               username: 
+ *               username:
  *                 type: string
  *     responses:
  *       201:
@@ -181,7 +180,7 @@ router.post('/profile-picture', requireAuth, upload.single('file'), async (req, 
  *             properties:
  *               username:
  *                 type: string
- *               pfp: 
+ *               pfp:
  *                 type: string
  *     responses:
  *       200:

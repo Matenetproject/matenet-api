@@ -17,7 +17,12 @@ export async function getFriendRequests(userId) {
  * @param {string} [params.nfcId] - The NFC ID of the user to send the friend request to
  * @param {string} [params.referrerCode] - The referral code of the user who referred the sender
  */
-export async function sendFriendRequest({ sender, receiverWalletAddress, referrerCode, nfcId }) {
+export async function sendFriendRequest({
+  sender,
+  receiverWalletAddress,
+  referrerCode,
+  nfcId,
+}) {
   let receiver = null;
 
   if (referrerCode) {

@@ -48,7 +48,7 @@ router.post('/siwe/verify', async function (req, res) {
   try {
     const token = await siweVerify({ message, signature });
     res.status(200).json({ success: true, token });
-  } catch(error) {
+  } catch (error) {
     res.status(401).json({ success: false, error: error.message });
   }
 });

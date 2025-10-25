@@ -45,7 +45,7 @@ export function generateToken(user) {
 
 /**
  * Verifies a JWT token and returns the decoded payload.
- * @param {string} token 
+ * @param {string} token
  */
 export function verifyToken(token) {
   return jsonwebtoken.verify(token, jwtSecret);
@@ -61,7 +61,7 @@ export function verifyToken(token) {
 export async function siweVerify({ message, signature }) {
   const siweMessage = new SiweMessage(message);
   const { data } = await siweMessage.verify({ signature });
-  
+
   let user;
   user = await User.findOne({ walletAddress: data.address });
 
