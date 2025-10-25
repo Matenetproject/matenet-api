@@ -85,7 +85,7 @@ export async function uploadProfilePicture(userId, file) {
   const profilePictureUrl = await uploadFileToBucket(userId, file);
   await User.findOneAndUpdate(
     { userId },
-    { profilePicture: profilePictureUrl },
+    { profilePictureUrl },
     { new: true }
   );
   return profilePictureUrl;
