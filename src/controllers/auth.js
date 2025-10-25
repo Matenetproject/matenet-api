@@ -3,6 +3,10 @@ import { SiweMessage } from 'siwe';
 import User from '../models/user.js';
 import { create } from './user.js';
 import config from '../config/environment.js';
+import { getSecret } from '../helpers/secret-manager.js';
+
+const { jwtSecretId, projectId } = config;
+const jwtSecret = await getSecret(projectId, jwtSecretId);
 
 /**
  * Compares a candidate password with the stored password for a user.
@@ -36,7 +40,7 @@ export function generateToken(user) {
     walletAddress: user.walletAddress,
     email: user.email,
   };
-  return jsonwebtoken.sign(payload, config.jwt.secret, { expiresIn: '30d' });
+  return jsonwebtoken.sign(payload, jwtSecret, { expiresIn: '30d' });
 }
 
 /**
@@ -44,7 +48,7 @@ export function generateToken(user) {
  * @param {string} token 
  */
 export function verifyToken(token) {
-  return jsonwebtoken.verify(token, config.jwt.secret);
+  return jsonwebtoken.verify(token, jwtSecret);
 }
 
 /**

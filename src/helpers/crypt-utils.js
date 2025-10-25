@@ -1,7 +1,10 @@
 import bcrypt from 'bcrypt';
 import crypto from 'node:crypto';
 import config from '../config/environment.js';
+import { getSecret } from './secret-manager.js';
 
+const { authKeyCipherSecretId, projectId } = config;
+const authKeyCipherSecret = await getSecret(projectId, authKeyCipherSecretId);
 const SALT_ROUNDS = 10;
 
 /**
@@ -29,7 +32,7 @@ export function hashAndEncryptField(field) {
  * @returns {string} - The encrypted field.
  */
 function encrypt(field) {
-  const key = config.pin.authKeyCipherSecret;
+  const key = authKeyCipherSecret;
   const iv = crypto.randomBytes(16).toString('base64').slice(0, 16);
   const cipher = crypto.createCipheriv('aes-256-ctr', key, iv);
   let encrypted = cipher.update(field, 'utf8', 'hex');
@@ -45,7 +48,7 @@ function encrypt(field) {
 export function decrypt(encryptedFieldAndIv) {
   const [encryptedField, ivString] = encryptedFieldAndIv.split(';');
   const iv = Buffer.from(ivString);
-  const key = config.pin.authKeyCipherSecret;
+  const key = authKeyCipherSecret;
   const decipher = crypto.createDecipheriv('aes-256-ctr', key, iv);
   let decrypted = decipher.update(encryptedField, 'hex', 'utf8');
   decrypted += decipher.final('utf8');

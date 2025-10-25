@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 import config from '../config/environment.js';
+import { getSecret } from '../helpers/secret-manager.js';
+
+const { mongoUriSecretId, projectId } = config;
 
 export async function connectDB() {
-  const mongoURI = config.db.uri;
+  const mongoURI = await getSecret(projectId, mongoUriSecretId);
   try {
     await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
