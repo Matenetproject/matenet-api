@@ -1,3 +1,4 @@
+import User from '../models/user.js';
 import Interaction from '../models/interaction.js';
 
 /**
@@ -9,6 +10,12 @@ import Interaction from '../models/interaction.js';
  * @returns {Promise<Interaction>} - The created interaction
  */
 export async function createInteraction({ userId, type, pointValue }) {
+  await User.findOneAndUpdate(
+    { userId },
+    { $inc: { points: pointValue } },
+    { new: true },
+  );
+
   const interaction = await Interaction.create({
     userId,
     type,
