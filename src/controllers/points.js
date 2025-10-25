@@ -1,4 +1,4 @@
-import Interaction from '../models/Interaction.js';
+import Interaction from '../models/interaction.js';
 
 export async function getPoints(userId) {
   const points = await Interaction.aggregate([
