@@ -91,3 +91,11 @@ export async function uploadProfilePicture(userId, file) {
   );
   return profilePictureUrl;
 }
+
+export async function updateUserFriendsList(userId, friendId) {
+  return User.findOneAndUpdate(
+    { userId },
+    { $addToSet: { friends: friendId } },
+    { new: true }
+  );
+}

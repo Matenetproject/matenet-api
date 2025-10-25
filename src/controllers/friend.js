@@ -1,6 +1,7 @@
 import User from '../models/user.js';
 import FriendRequest from '../models/friend-request.js';
 import { createInteraction } from '../components/interaction.js';
+import { updateUserFriendsList } from './user.js';
 import { INTERACTION_POINTS, INTERACTION_TYPES } from '../helpers/constants.js';
 
 export async function getFriendRequests(userId) {
@@ -66,11 +67,14 @@ export async function acceptFriendRequest({ senderId, receiverId }) {
     { status: 'ACCEPTED' },
     { new: true },
   );
+
   if (!friendRequest) {
     throw new Error('Friend request not found');
   }
 
   Promise.all([
+    updateUserFriendsList(senderId, receiverId),
+    updateUserFriendsList(receiverId, senderId),
     createInteraction({
       userId: senderId,
       type: INTERACTION_TYPES.ADD_FRIEND,
