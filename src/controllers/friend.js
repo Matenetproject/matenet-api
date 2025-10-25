@@ -41,7 +41,7 @@ export async function sendFriendRequest({ sender, receiverWalletAddress, referre
 
   return FriendRequest.create({
     senderId: sender.userId,
-    receiverId: receiver.username,
+    receiverId: receiver.userId,
     status: 'PENDING',
   });
 }
