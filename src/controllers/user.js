@@ -57,6 +57,7 @@ export async function create(user) {
  * @param {string} userId - The user's ID
  * @param {Object} profileData - The profile data to update
  * @param {String} profileData.username - The user's username
+ * @param {String} profileData.fullName - The user's full name
  * @param {String} profileData.bio - The user's bio
  * @param {String} profileData.socials.twitter - The user's Twitter handle
  * @param {String} profileData.socials.instagram - The user's Instagram handle

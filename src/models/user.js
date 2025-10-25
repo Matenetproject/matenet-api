@@ -12,6 +12,7 @@ const UserSchema = new Schema(
     walletAddress: { type: String, unique: true, sparse: true },
     nfcId: { type: String, unique: true, sparse: true },
     username: { type: String, unique: true, sparse: true },
+    fullName: { type: String },
     email: { type: String, unique: true, sparse: true },
     password: {
       type: String,
