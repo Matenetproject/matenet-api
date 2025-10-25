@@ -54,7 +54,7 @@ export async function sendFriendRequest({ sender, receiverWalletAddress, referre
  * @param {string} params.receiverId - The userId of the user accepting the friend request
  * @returns {Promise<User>} - The user who accepted the friend request
  */
-export async function acceptFriendRequest({ senderId }) {
+export async function acceptFriendRequest({ senderId, receiverId }) {
   const receiver = await User.findOne({ userId: receiverId });
 
   if (!receiver) {
