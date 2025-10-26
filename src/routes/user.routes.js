@@ -47,10 +47,10 @@ router.get('/profile', requireAuth, async (req, res) => {
   }
 });
 
-router.get('/', requireAuth, async (req, res) => {
+router.get('/:value', requireAuth, async (req, res) => {
   try {
-    const { userId, nfcId } = req.query;
-    const user = await User.findByField({ userId, nfcId });
+    const { value } = req.params;
+    const user = await User.findByFieldSmart(value);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }

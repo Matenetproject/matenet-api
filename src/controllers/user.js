@@ -74,11 +74,18 @@ export async function findById(userId) {
   return User.findOne({ userId });
 }
 
-export async function findByField({ userId, nfcId }) {
-  const query = {};
-  if (userId) query.userId = userId;
-  if (nfcId) query.nfcId = nfcId;
-  return User.findOne(query);
+/**
+ * Finds a user by either userId or nfcId
+ * @param {string} value - The userId or nfcId to search for
+ * @returns {Promise<User|null>} - The found user or null if not found
+ */
+export async function findByFieldSmart(value) {
+  // Try userId first
+  let user = await User.findOne({ userId: value });
+  if (user) return user;
+  // If not found, try nfcId
+  user = await User.findOne({ nfcId: value });
+  return user;
 }
 
 export async function registerNFC(userId, nfcId) {
