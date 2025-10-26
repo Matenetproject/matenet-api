@@ -47,6 +47,19 @@ router.get('/profile', requireAuth, async (req, res) => {
   }
 });
 
+router.get('/', requireAuth, async (req, res) => {
+  try {
+    const { userId, nfcId } = req.query;
+    const user = await User.findByField({ userId, nfcId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error', message: error.message });
+  }
+});
+
 router.post('/register-nfc', requireAuth, async (req, res) => {
   try {
     const { nfcId } = req.body;

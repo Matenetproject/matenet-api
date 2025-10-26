@@ -74,6 +74,13 @@ export async function findById(userId) {
   return User.findOne({ userId });
 }
 
+export async function findByField({ userId, nfcId }) {
+  const query = {};
+  if (userId) query.userId = userId;
+  if (nfcId) query.nfcId = nfcId;
+  return User.findOne(query);
+}
+
 export async function registerNFC(userId, nfcId) {
   const existingUser = await User.findOne({ nfcId });
   if (existingUser) {
